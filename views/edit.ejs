@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script>
+        // Tailwind CSS configuration for dark mode
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <style>
+        /* Custom transition for smooth theme switching */
+        html {
+            transition: background-color 0.3s, color 0.3s;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-slate-200 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-white min-h-screen flex flex-col antialiased">
+    <!-- Profile Header -->
+    <header
+        class="w-full bg-gray-100 dark:bg-gray-800/80 backdrop-blur-md p-4 flex justify-between items-center shadow-lg sticky top-0 z-50">
+        <div class="flex items-center space-x-4">
+            <i class="fas fa-user-circle text-3xl text-blue-600 dark:text-blue-400"></i>
+            <h1 class="text-2xl font-bold">Hello, <span id="username" class="text-blue-700 dark:text-blue-300">
+                    <%= user.username %>
+                </span> 👋</h1>
+        </div>
+
+        <!-- Hamburger Menu for Small Screens -->
+        <button id="menuToggle"
+            class="sm:hidden bg-gray-200 dark:bg-gray-700 px-3 py-2 rounded-md transition-all duration-300 hover:bg-gray-300 dark:hover:bg-gray-600">
+            <i class="fas fa-bars text-blue-600 dark:text-white"></i>
+        </button>
+
+
+        <div id="nav"
+            class="fixed top-0 right-0 w-2/4 h-[100vh] bg-gray-100 md:dark:bg-transparent dark:bg-gray-800/80 backdrop-blur-md  transform translate-x-full transition-transform duration-300 sm:relative sm:translate-x-0 sm:w-auto sm:h-auto sm:flex sm:space-x-4  flex p-6 gap-3 md:flex-row  flex-col md:p-0">
+
+            <!-- Close Button for Sliding Nav -->
+            <button id="closeNav"
+                class="absolute top-4 right-4 sm:hidden bg-red-500 text-white px-3 py-2 rounded-md transition-all duration-300 hover:bg-red-600">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <!-- Theme Toggle Button -->
+            <button id="themeToggle"
+                class="mt-16 sm:mt-0 bg-gray-200 dark:bg-gray-700 px-4 py-2 w-fit rounded-md transition-all duration-300 hover:bg-gray-300 dark:hover:bg-gray-600">
+                <i id="themeIcon" class="fas fa-moon text-blue-600 dark:text-yellow-500"></i>
+            </button>
+
+            <!-- Profile Button -->
+            <a href="/" class="mt-6 sm:mt-0">
+                <button
+                    class=" dark:text-white md:px-6 md:py-2 p-0 md:rounded-md md:shadow-md flex items-center space-x-2">
+                    <span>Home</span>
+                </button>
+            </a>
+
+
+            <!-- Logout Button -->
+            <a href="/auth/logout" class="mt-6 sm:mt-0">
+                <button
+                    class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 md:rounded-md md:shadow-md flex items-center space-x-2">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </a>
+
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 flex-grow">
+        <!-- Create Post Section -->
+        <section
+            class="max-w-3xl mx-auto bg-gray-50 dark:bg-gray-800/60 backdrop-blur-md rounded-xl shadow-xl p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 flex items-center space-x-2">
+                <i class="fas fa-edit text-blue-600 dark:text-blue-400"></i>
+                <span>Edit post</span>
+            </h2>
+            <form id="postForm" action="/post/edit/<%= post._id %>" method="post">
+                <textarea name="postData" rows="4" required
+                    class="w-full bg-white dark:bg-gray-700/50 text-gray-900 dark:text-white p-4 rounded-lg mb-4 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+                    placeholder="Edit post"><%=post.postData%></textarea>
+                <button type="submit"
+                    class="w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-full shadow-md transition transform hover:scale-105 flex items-center justify-center space-x-2">
+                    <i class="fas fa-paper-plane"></i>
+                    <span>Update</span>
+                </button>
+            </form>
+        </section>
+
+
+    </main>
+
+</body>
+
+</html>

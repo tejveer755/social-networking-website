@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script>
+        // Tailwind CSS configuration for dark mode
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <style>
+        /* Custom transition for smooth theme switching */
+        html {
+            transition: background-color 0.3s, color 0.3s;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-slate-200 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-white min-h-screen flex flex-col antialiased">
+    <!-- Profile Header -->
+    <header
+        class="w-full bg-gray-100 dark:bg-gray-800/80 backdrop-blur-md p-4 flex justify-between items-center shadow-lg sticky top-0 z-50">
+        <div class="flex items-center space-x-4">
+            <img src="/images/uploads/<%=user? user.profilePhoto: 'default.jpg'%>" class="w-8 h-8 rounded-full"
+                alt="profilePhoto">
+            <h1 class="text-2xl font-bold">Hello, <span id="username" class="text-blue-700 dark:text-blue-300">
+                    <%= user.username %>
+                </span> 👋</h1>
+        </div>
+
+        <!-- Hamburger Menu for Small Screens -->
+        <button id="menuToggle"
+            class="sm:hidden bg-gray-200 dark:bg-gray-700 px-3 py-2 rounded-md transition-all duration-300 hover:bg-gray-300 dark:hover:bg-gray-600">
+            <i class="fas fa-bars text-blue-600 dark:text-white"></i>
+        </button>
+
+
+        <div id="nav"
+            class="fixed top-0 right-0 w-2/4 h-[100vh] bg-gray-100 md:dark:bg-transparent dark:bg-gray-800/80 backdrop-blur-md  transform translate-x-full transition-transform duration-300 sm:relative sm:translate-x-0 sm:w-auto sm:h-auto sm:flex sm:space-x-4  flex p-6 gap-3 md:flex-row  flex-col md:p-0">
+
+            <!-- Close Button for Sliding Nav -->
+            <button id="closeNav"
+                class="absolute top-4 right-4 sm:hidden bg-red-500 text-white px-3 py-2 rounded-md transition-all duration-300 hover:bg-red-600">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <!-- Theme Toggle Button -->
+            <button id="themeToggle"
+                class="mt-16 sm:mt-0 bg-gray-200 dark:bg-gray-700 px-4 py-2 w-fit rounded-md transition-all duration-300 hover:bg-gray-300 dark:hover:bg-gray-600">
+                <i id="themeIcon" class="fas fa-moon text-blue-600 dark:text-yellow-500"></i>
+            </button>
+
+            <!-- Profile Button -->
+            <a href="/" class="mt-6 sm:mt-0">
+                <button
+                    class=" dark:text-white md:px-6 md:py-2 p-0 md:rounded-md md:shadow-md flex items-center space-x-2">
+                    <span>Home</span>
+                </button>
+            </a>
+
+
+            <!-- Logout Button -->
+            <a href="/auth/logout" class="mt-6 sm:mt-0">
+                <button
+                    class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 md:rounded-md md:shadow-md flex items-center space-x-2">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </a>
+
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 flex-grow">
+        <!-- Create Post Section -->
+        <div class="container mx-auto mb-7">
+            <div
+                class="flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-12 shadow-xl rounded-2xl bg-white dark:bg-gradient-to-br dark:from-gray-800 dark:to-gray-700 px-4 py-8 mx-auto max-w-4xl ">
+                <!-- Profile Picture -->
+                <div class="relative">
+                    <div
+                        class="w-48 h-48 rounded-full overflow-hidden border-4 border-white shadow-lg ring-4 ring-blue-100 transition-all duration-300 hover:ring-blue-200">
+                        <img src="images/uploads/<%=user.profilePhoto%>" alt="Profile Picture"
+                            class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300">
+                    </div>
+                </div>
+
+                <!-- Profile Info -->
+                <div class="flex-1 text-center md:text-left">
+                    <div class="mb-6">
+                        <h1 class="text-4xl font-bold text-slate-200 mb-2 transition-colors">
+                            @<%= user.username %>
+                        </h1>
+                        <!-- <p class="text-gray-500 text-sm italic">Software Developer | Tech Enthusiast</p> -->
+                    </div>
+
+                    <!-- Profile Stats -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-6 p-4 rounded-lg">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-cyan-100">
+                                <%= user.posts.length %>
+                            </div>
+                            <div class="text-cyan-100 text-sm">
+                                <%= user.posts.length===1 ? 'Post' : 'Posts' %>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-cyan-100">
+                                <%= user.age %>
+                            </div>
+                            <div class="text-gray-500 text-sm">
+                                Age
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-cyan-100">
+                                +91 <%= user.contact_num %>
+                            </div>
+                            <div class="text-cyan-100 text-sm">
+                                Contact
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div
+                        class="flex flex-col sm:flex-row justify-center md:justify-start space-y-3 sm:space-y-0 sm:space-x-4">
+
+                        <!-- Button -->
+                        <a href="/profile/uploadPhoto">
+                            <button
+                                class="w-full sm:w-auto text-blue-500 bg-slate-100 px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center space-x-2">
+                                update Profile Photo
+                            </button>
+                        </a>
+
+                        <a href="/post/create">
+                            <button
+                                class="w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center space-x-2">
+
+                                <span>Create a new post</span>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Posts Section -->
+        <section class="max-w-[90%] mx-auto">
+            <h2 class="text-2xl font-bold mb-6 flex items-center space-x-2">
+                <i class="fas fa-stream text-blue-600 dark:text-blue-400"></i>
+                <span>Your Posts</span>
+            </h2>
+
+            <div id="posts" class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                <% if (user.posts.reverse().length> 0) { %>
+                    <% user.posts.forEach(post=> { %>
+                        <div
+                            class="bg-white dark:bg-gradient-to-br dark:from-gray-800 dark:to-gray-700 p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                            <!-- Post Metadata -->
+                            <div class="flex justify-between items-center mb-4">
+                                <div
+                                    class="text-sm text-gray-600 dark:text-gray-400 italic flex items-center space-x-2">
+                                    <img src="/images/uploads/<%= user.profilePhoto%>" class="w-8 h-8 rounded-full"
+                                        alt="profilePhoto">
+                                    <span class="text-blue-700 dark:text-blue-300">
+                                            <%= user.username %>
+                                       </span>
+                                </div>
+                                <span class="text-sm text-gray-500 dark:text-gray-400 italic">
+                                    <%= new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' , timeStyle: 'short'
+                                        }).format(new Date(post.date)) %>
+                                </span>
+                            </div>
+
+                            <!-- Divider -->
+                            <hr class="border-gray-300 dark:border-gray-600 mb-4">
+
+                            <!-- Post Content -->
+                            <p class="text-gray-800 dark:text-gray-300 mb-6 leading-relaxed min-h-[100px]">
+                                <%= post.postData %>
+                            </p>
+
+                            <!-- Action Buttons -->
+                            <div class="flex justify-between items-center">
+                                <div class="text-sm text-gray-600 dark:text-gray-400 flex items-center space-x-2">
+
+                                    <%= post.likes.length%>
+                                        <%= post.likes.length> 0 ? 'likes' : 'like' %>
+                                </div>
+                                <div class="flex gap-3">
+                                    <a href="/post/edit/<%= post._id %>"
+                                        class="dark:text-white text-slate-200 text-sm px-6 py-2 rounded-full transition-all duration-200 transform hover:scale-110 flex items-center space-x-2">
+                                        <i class="ri-edit-line"></i>
+                                        <span>Edit</span>
+                                    </a>
+                                    <a href="/post/delete/<%= post._id %>">
+                                        <button
+                                            class="bg-red-500 hover:bg-red-600 text-white text-sm px-6 py-2 rounded-full transition-all duration-200 transform hover:scale-110 flex items-center space-x-2">
+                                            <i class="fas fa-trash-alt"></i>
+                                            <span>Delete</span>
+                                        </button>
+                                </div>
+                                </a>
+                            </div>
+                        </div>
+                        <% }); %>
+                            <% } else { %>
+                                <div class="col-span-full text-center bg-gray-100 dark:bg-gray-800/50 p-8 rounded-xl">
+                                    <i class="fas fa-edit text-4xl text-gray-500 mb-4"></i>
+                                    <p class="text-gray-600 dark:text-gray-400 text-lg">No posts yet. Create your first
+                                        post!</p>
+                                </div>
+                                <% } %>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlElement = document.documentElement;
+
+        // Check for saved theme or system preference on initial load
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        // Set initial theme
+        if (savedTheme) {
+            htmlElement.classList.toggle('dark', savedTheme === 'dark');
+        } else {
+            htmlElement.classList.toggle('dark', prefersDarkMode);
+        }
+
+        // Update icon based on current theme
+        function updateThemeIcon() {
+            const isDarkMode = htmlElement.classList.contains('dark');
+            themeIcon.classList.toggle('fa-moon', !isDarkMode);
+            themeIcon.classList.toggle('fa-sun', isDarkMode);
+            themeIcon.classList.toggle('text-blue-600', !isDarkMode);
+            themeIcon.classList.toggle('text-yellow-500', isDarkMode);
+        }
+
+        // Initial icon update
+        updateThemeIcon();
+
+        // Theme toggle event listener
+        themeToggle.addEventListener('click', () => {
+            htmlElement.classList.toggle('dark');
+
+            // Save theme preference
+            const isDarkMode = htmlElement.classList.contains('dark');
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+
+            // Update icon
+            updateThemeIcon();
+        });
+
+        document.getElementById('menuToggle').addEventListener('click', () => {
+            document.getElementById('nav').classList.remove('translate-x-full');
+        });
+
+        document.getElementById('closeNav').addEventListener('click', () => {
+            document.getElementById('nav').classList.add('translate-x-full');
+        });
+    </script>
+</body>
+
+</html>
