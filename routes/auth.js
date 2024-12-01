@@ -1,7 +1,8 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const userModel = require("models/user-model");
+require('dotenv').config();
+const userModel = require("../models/user-model");
 
 const router = express.Router();
 
@@ -30,7 +31,7 @@ router
         age,
         contact_num,
       });
-      const token = jwt.sign({ email, userId: user._id }, "ishuashu");
+      const token = jwt.sign({ email, userId: user._id },   process.env.JWT_SECRET);
       res.cookie("token", token);
 
       res.redirect("/");
@@ -52,7 +53,7 @@ router
       if (isMatch) {
         const token = jwt.sign(
           { email: req.body.email, userId: user._id },
-          "ishuashu"
+            process.env.JWT_SECRET
         );
         res.cookie("token", token);
         res.redirect("/");

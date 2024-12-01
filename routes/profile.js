@@ -1,5 +1,5 @@
 const express = require("express");
-const userModel = require("models/user-model");
+const userModel = require("../models/user-model");
 const authenticateUser = require("../middleware/auth");
 const router = express.Router();
 const upload = require("../config/multerconfig");

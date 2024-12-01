@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const postModel = require("models/post-model");
-const userModel = require("models/user-model");
+const postModel = require("../models/post-model");
+const userModel = require("../models/user-model");
 const  authenticateUser  = require("../middleware/auth");
 
 router.get("/", authenticateUser, async (req, res) => {
