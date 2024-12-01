@@ -12,9 +12,16 @@
             darkMode: 'class',
         }
     </script>
+    <style>
+        /* Custom transition for smooth theme switching */
+        html {
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+    </style>
 </head>
 
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen">
+<body class="bg-gray-100 overflow-x-hidden dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen">
 
     <!-- Header -->
     <header
@@ -104,67 +111,62 @@
                 </div>
 
                 <!-- Profile Info -->
-                <div class="flex-1 text-center md:text-left">
-                    <div class="mb-6">
-                        <h1 class="text-4xl font-bold text-slate-200 mb-2 transition-colors">
-                            @<%= user.username %>
-                        </h1>
-                        <p class="text-gray-500 text-sm italic">Software Developer | Tech Enthusiast</p>
-                    </div>
+<div class="flex-1 text-center md:text-left">
+    <div class="mb-6">
+        <h1 class="text-4xl font-bold text-cyan-800 dark:text-slate-200 mb-2 transition-colors">
+            @<%= user.username %>
+        </h1>
+        <!-- <p class="text-gray-500 text-sm italic">Software Developer | Tech Enthusiast</p> -->
+    </div>
 
-                    <!-- Profile Stats -->
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-6 p-4 rounded-lg">
-                        <div class="text-center">
-                            <div class="text-2xl font-bold text-cyan-100">
-                                <%= user.posts.length %>
-                            </div>
-                            <div class="text-cyan-100 text-sm">
-                                <%= user.posts.length===1 ? 'Post' : 'Posts' %>
-                            </div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-2xl font-bold text-cyan-100">
-                                <%= user.age %>
-                            </div>
-                            <div class="text-gray-500 text-sm">
-                                Age
-                            </div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-2xl font-bold text-cyan-100">
-                                +91 <%= user.contact_num %>
-                            </div>
-                            <div class="text-cyan-100 text-sm">
-                                Contact
-                            </div>
-                        </div>
-                    </div>
+    <!-- Profile Stats -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-6 p-4 rounded-lg">
+        <div class="text-center">
+            <div class="text-2xl font-bold text-cyan-900 dark:text-cyan-100">
+                <%= user.posts.length %>
+            </div>
+            <div class="text-gray-500 dark:text-gray-300 text-sm">
+                <%= user.posts.length===1 ? 'Post' : 'Posts' %>
+            </div>
+        </div>
+        <div class="text-center">
+            <div class="text-2xl font-bold text-slate-800 dark:text-slate-200">
+                <%= user.age %>
+            </div>
+            <div class="text-gray-500 dark:text-gray-300 text-sm">
+                Age
+            </div>
+        </div>
+        <div class="text-center">
+            <div class="text-2xl font-bold text-slate-800 dark:text-slate-200">
+                +91 <%= user.contact_num %>
+            </div>
+            <div class="text-gray-500 dark:text-gray-300 text-sm">
+                Contact
+            </div>
+        </div>
+    </div>
 
-                    <!-- Action Buttons -->
-                    <div
-                        class="flex flex-col sm:flex-row justify-center md:justify-start space-y-3 sm:space-y-0 sm:space-x-4">
-                        <button
-                            class="w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center space-x-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path
-                                    d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.5 17c0 .662-.278 1.398-.603 2h.603a3 3 0 003-3c0-1.06-.435-2.005-1.45-2.595C13.996 13.608 13 14.801 13 16s.996 2.392 2.5 3zM7 16c0-.799-.996-1.992-2.25-2.595C3.435 13.005 3 13.95 3 15a3 3 0 003 3h.603c-.325-.602-.603-1.338-.603-2z" />
-                                <path d="M16.5 16c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3z" />
-                            </svg>
-                            <span>Follow</span>
-                        </button>
-                        <button
-                            class="w-full sm:w-auto bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center space-x-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            <span>Message</span>
-                        </button>
-                    </div>
-                </div>
+    <!-- Action Buttons -->
+    <div class="flex flex-col sm:flex-row justify-center md:justify-start space-y-3 sm:space-y-0 sm:space-x-4">
+
+        <!-- Button -->
+        <a href="/profile/uploadPhoto">
+            <button
+                class="w-full sm:w-auto text-blue-500 bg-slate-100 dark:bg-slate-700 dark:text-blue-500 px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center space-x-2">
+                Update Profile Photo
+            </button>
+        </a>
+
+        <a href="/post/create">
+            <button
+                class="w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white dark:bg-blue-700 dark:hover:bg-blue-800 px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center space-x-2">
+                <span>Create a new post</span>
+            </button>
+        </a>
+    </div>
+</div>
+
             </div>
         </div>
 
@@ -249,6 +251,55 @@
             </div>
         </section>
     </div>
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlElement = document.documentElement;
+
+        // Check for saved theme or system preference on initial load
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        // Set initial theme
+        if (savedTheme) {
+            htmlElement.classList.toggle('dark', savedTheme === 'dark');
+        } else {
+            htmlElement.classList.toggle('dark', prefersDarkMode);
+        }
+
+        // Update icon based on current theme
+        function updateThemeIcon() {
+            const isDarkMode = htmlElement.classList.contains('dark');
+            themeIcon.classList.toggle('fa-moon', !isDarkMode);
+            themeIcon.classList.toggle('fa-sun', isDarkMode);
+            themeIcon.classList.toggle('text-blue-600', !isDarkMode);
+            themeIcon.classList.toggle('text-yellow-500', isDarkMode);
+        }
+
+        // Initial icon update
+        updateThemeIcon();
+
+        // Theme toggle event listener
+        themeToggle.addEventListener('click', () => {
+            htmlElement.classList.toggle('dark');
+
+            // Save theme preference
+            const isDarkMode = htmlElement.classList.contains('dark');
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+
+            // Update icon
+            updateThemeIcon();
+        });
+
+        document.getElementById('menuToggle').addEventListener('click', () => {
+            document.getElementById('nav').classList.remove('translate-x-full');
+        });
+
+        document.getElementById('closeNav').addEventListener('click', () => {
+            document.getElementById('nav').classList.add('translate-x-full');
+        });
+    </script>
 </body>
 
 </html>

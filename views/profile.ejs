@@ -17,12 +17,13 @@
         /* Custom transition for smooth theme switching */
         html {
             transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
         }
     </style>
 </head>
 
 <body
-    class="bg-slate-200 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-white min-h-screen flex flex-col antialiased">
+    class="bg-slate-200 overflow-x-hidden dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-white min-h-screen flex flex-col antialiased">
     <!-- Profile Header -->
     <header
         class="w-full bg-gray-100 dark:bg-gray-800/80 backdrop-blur-md p-4 flex justify-between items-center shadow-lg sticky top-0 z-50">
@@ -42,7 +43,7 @@
 
 
         <div id="nav"
-            class="fixed top-0 right-0 w-2/4 h-[100vh] bg-gray-100 md:dark:bg-transparent dark:bg-gray-800/80 backdrop-blur-md  transform translate-x-full transition-transform duration-300 sm:relative sm:translate-x-0 sm:w-auto sm:h-auto sm:flex sm:space-x-4  flex p-6 gap-3 md:flex-row  flex-col md:p-0">
+            class="fixed top-0 right-0 w-2/4 h-[100vh] bg-gray-100 md:dark:bg-transparent dark:bg-gray-800 backdrop-blur-md  transform translate-x-full transition-transform duration-300 sm:relative sm:translate-x-0 sm:w-auto sm:h-auto sm:flex sm:space-x-4  flex p-6 gap-3 md:flex-row  flex-col md:p-0">
 
             <!-- Close Button for Sliding Nav -->
             <button id="closeNav"
@@ -95,7 +96,7 @@
                 <!-- Profile Info -->
                 <div class="flex-1 text-center md:text-left">
                     <div class="mb-6">
-                        <h1 class="text-4xl font-bold text-slate-200 mb-2 transition-colors">
+                        <h1 class="text-4xl font-bold text-cyan-800 dark:text-slate-200 mb-2 transition-colors">
                             @<%= user.username %>
                         </h1>
                         <!-- <p class="text-gray-500 text-sm italic">Software Developer | Tech Enthusiast</p> -->
@@ -104,26 +105,26 @@
                     <!-- Profile Stats -->
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-6 p-4 rounded-lg">
                         <div class="text-center">
-                            <div class="text-2xl font-bold text-cyan-100">
+                            <div class="text-2xl font-bold text-cyan-900 dark:text-cyan-100">
                                 <%= user.posts.length %>
                             </div>
-                            <div class="text-cyan-100 text-sm">
+                            <div class="text-gray-500 dark:text-gray-300 text-sm">
                                 <%= user.posts.length===1 ? 'Post' : 'Posts' %>
                             </div>
                         </div>
                         <div class="text-center">
-                            <div class="text-2xl font-bold text-cyan-100">
+                            <div class="text-2xl font-bold text-slate-800 dark:text-slate-200">
                                 <%= user.age %>
                             </div>
-                            <div class="text-gray-500 text-sm">
+                            <div class="text-gray-500 dark:text-gray-300 text-sm">
                                 Age
                             </div>
                         </div>
                         <div class="text-center">
-                            <div class="text-2xl font-bold text-cyan-100">
+                            <div class="text-2xl font-bold text-slate-800 dark:text-slate-200">
                                 +91 <%= user.contact_num %>
                             </div>
-                            <div class="text-cyan-100 text-sm">
+                            <div class="text-gray-500 dark:text-gray-300 text-sm">
                                 Contact
                             </div>
                         </div>
@@ -136,20 +137,20 @@
                         <!-- Button -->
                         <a href="/profile/uploadPhoto">
                             <button
-                                class="w-full sm:w-auto text-blue-500 bg-slate-100 px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center space-x-2">
-                                update Profile Photo
+                                class="w-full sm:w-auto text-blue-500 bg-slate-100 dark:bg-slate-700 dark:text-blue-500 px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center space-x-2">
+                                Update Profile Photo
                             </button>
                         </a>
 
                         <a href="/post/create">
                             <button
-                                class="w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center space-x-2">
-
+                                class="w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white dark:bg-blue-700 dark:hover:bg-blue-800 px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center space-x-2">
                                 <span>Create a new post</span>
                             </button>
                         </a>
                     </div>
                 </div>
+
             </div>
         </div>
         <!-- Posts Section -->
@@ -171,8 +172,8 @@
                                     <img src="/images/uploads/<%= user.profilePhoto%>" class="w-8 h-8 rounded-full"
                                         alt="profilePhoto">
                                     <span class="text-blue-700 dark:text-blue-300">
-                                            <%= user.username %>
-                                       </span>
+                                        <%= user.username %>
+                                    </span>
                                 </div>
                                 <span class="text-sm text-gray-500 dark:text-gray-400 italic">
                                     <%= new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' , timeStyle: 'short'

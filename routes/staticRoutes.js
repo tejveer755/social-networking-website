@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const postModel = require("../models/post-model");
 const userModel = require("../models/user-model");
-const  authenticateUser  = require("../middleware/auth");
+const authenticateUser = require("../middleware/auth");
 
 router.get("/", authenticateUser, async (req, res) => {
   try {
@@ -15,6 +15,5 @@ router.get("/", authenticateUser, async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
-
 
 module.exports = router;

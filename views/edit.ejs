@@ -17,31 +17,31 @@
         /* Custom transition for smooth theme switching */
         html {
             transition: background-color 0.3s, color 0.3s;
+            overflow: hidden;
         }
     </style>
 </head>
 
 <body
-    class="bg-slate-200 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-white min-h-screen flex flex-col antialiased">
+    class="bg-slate-200 overflow-hidden dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-white min-h-screen flex flex-col antialiased">
     <!-- Profile Header -->
     <header
         class="w-full bg-gray-100 dark:bg-gray-800/80 backdrop-blur-md p-4 flex justify-between items-center shadow-lg sticky top-0 z-50">
-        <div class="flex items-center space-x-4">
-            <i class="fas fa-user-circle text-3xl text-blue-600 dark:text-blue-400"></i>
-            <h1 class="text-2xl font-bold">Hello, <span id="username" class="text-blue-700 dark:text-blue-300">
+        <div class="flex items-center space-x-2 sm:space-x-4">
+            <i class="fas fa-user-circle text-xl sm:text-3xl text-blue-600 dark:text-blue-400"></i>
+            <h1 class="text-lg sm:text-2xl font-bold">Hello, <span id="username" class="text-blue-700 dark:text-blue-300">
                     <%= user.username %>
                 </span> 👋</h1>
         </div>
 
         <!-- Hamburger Menu for Small Screens -->
         <button id="menuToggle"
-            class="sm:hidden bg-gray-200 dark:bg-gray-700 px-3 py-2 rounded-md transition-all duration-300 hover:bg-gray-300 dark:hover:bg-gray-600">
-            <i class="fas fa-bars text-blue-600 dark:text-white"></i>
+            class="sm:hidden bg-gray-200 dark:bg-gray-700 px-2 py-1 sm:px-3 sm:py-2 rounded-md transition-all duration-300 hover:bg-gray-300 dark:hover:bg-gray-600">
+            <i class="fas fa-bars text-sm text-blue-600 dark:text-white"></i>
         </button>
 
-
         <div id="nav"
-            class="fixed top-0 right-0 w-2/4 h-[100vh] bg-gray-100 md:dark:bg-transparent dark:bg-gray-800/80 backdrop-blur-md  transform translate-x-full transition-transform duration-300 sm:relative sm:translate-x-0 sm:w-auto sm:h-auto sm:flex sm:space-x-4  flex p-6 gap-3 md:flex-row  flex-col md:p-0">
+            class="fixed top-0 right-0 w-2/4 h-[100vh] bg-gray-100 md:dark:bg-transparent dark:bg-gray-800 backdrop-blur-md  transform translate-x-full transition-transform duration-300 sm:relative sm:translate-x-0 sm:w-auto sm:h-auto sm:flex sm:space-x-4  flex p-6 gap-3 md:flex-row  flex-col md:p-0">
 
             <!-- Close Button for Sliding Nav -->
             <button id="closeNav"
@@ -51,28 +51,26 @@
 
             <!-- Theme Toggle Button -->
             <button id="themeToggle"
-                class="mt-16 sm:mt-0 bg-gray-200 dark:bg-gray-700 px-4 py-2 w-fit rounded-md transition-all duration-300 hover:bg-gray-300 dark:hover:bg-gray-600">
+                class="mt-16 sm:mt-0 bg-gray-200 dark:bg-gray-700 px-4 py-2 w-fit rounded-md transition-all duration-300 hover:bg-gray-300 dark:hover:bg-gray-600 mb-4 sm:mb-0">
                 <i id="themeIcon" class="fas fa-moon text-blue-600 dark:text-yellow-500"></i>
             </button>
 
             <!-- Profile Button -->
-            <a href="/" class="mt-6 sm:mt-0">
+            <a href="/" class="mt-4 sm:mt-0">
                 <button
-                    class=" dark:text-white md:px-6 md:py-2 p-0 md:rounded-md md:shadow-md flex items-center space-x-2">
+                    class="dark:text-white sm:px-6 sm:py-2 p-2 sm:rounded-md sm:shadow-md flex items-center space-x-2">
                     <span>Home</span>
                 </button>
             </a>
 
-
             <!-- Logout Button -->
-            <a href="/auth/logout" class="mt-6 sm:mt-0">
+            <a href="/auth/logout" class="mt-4 sm:mt-0">
                 <button
-                    class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 md:rounded-md md:shadow-md flex items-center space-x-2">
+                    class="bg-red-500 hover:bg-red-600 text-white sm:px-6 sm:py-2 p-2 sm:rounded-md sm:shadow-md flex items-center space-x-2">
                     <i class="fas fa-sign-out-alt"></i>
                     <span>Logout</span>
                 </button>
             </a>
-
         </div>
     </header>
 
@@ -80,26 +78,69 @@
     <main class="container mx-auto px-4 py-8 flex-grow">
         <!-- Create Post Section -->
         <section
-            class="max-w-3xl mx-auto bg-gray-50 dark:bg-gray-800/60 backdrop-blur-md rounded-xl shadow-xl p-6 mb-8">
-            <h2 class="text-2xl font-bold mb-4 flex items-center space-x-2">
+            class="w-full sm:w-4/5 md:w-3/4 lg:max-w-3xl mx-auto bg-gray-50 dark:bg-gray-800/60 backdrop-blur-md rounded-xl shadow-xl p-4 sm:p-6 mb-8">
+            <h2 class="text-xl sm:text-2xl font-bold mb-4 flex items-center space-x-2">
                 <i class="fas fa-edit text-blue-600 dark:text-blue-400"></i>
                 <span>Edit post</span>
             </h2>
             <form id="postForm" action="/post/edit/<%= post._id %>" method="post">
-                <textarea name="postData" rows="4" required
-                    class="w-full bg-white dark:bg-gray-700/50 text-gray-900 dark:text-white p-4 rounded-lg mb-4 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
-                    placeholder="Edit post"><%=post.postData%></textarea>
-                <button type="submit"
-                    class="w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-full shadow-md transition transform hover:scale-105 flex items-center justify-center space-x-2">
-                    <i class="fas fa-paper-plane"></i>
-                    <span>Update</span>
-                </button>
+                <div class="relative">
+                    <textarea id="postTextarea" name="postData" rows="4" required
+                        class="w-full bg-white dark:bg-gray-700/50 text-gray-900 dark:text-white p-3 sm:p-4 rounded-lg mb-4 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 resize-none"
+                        placeholder="Edit post"><%=post.postData%></textarea>
+                    <div id="charCount" class="absolute bottom-6 right-2 text-sm text-gray-500 dark:text-gray-400">
+                        0 / 280
+                    </div>
+                </div>
+                <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+                    <button type="submit"
+                        class="w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-full shadow-md transition transform hover:scale-105 flex items-center justify-center space-x-2">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>Update</span>
+                    </button>
+                    <a href="/" 
+                        class="w-full sm:w-auto text-center bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600 text-gray-800 dark:text-white font-semibold py-3 px-6 rounded-full shadow-md transition transform hover:scale-105 flex items-center justify-center space-x-2">
+                        <i class="fas fa-times"></i>
+                        <span>Cancel</span>
+                    </a>
+                </div>
             </form>
         </section>
-
-
     </main>
 
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlElement = document.documentElement;
+
+        // Check saved theme or system preference
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme) htmlElement.classList.toggle('dark', savedTheme === 'dark');
+        else htmlElement.classList.toggle('dark', prefersDark);
+
+        const updateThemeIcon = () => {
+            const isDark = htmlElement.classList.contains('dark');
+            themeIcon.classList.toggle('fa-moon', !isDark);
+            themeIcon.classList.toggle('fa-sun', isDark);
+        };
+        updateThemeIcon();
+
+        themeToggle.addEventListener('click', () => {
+            htmlElement.classList.toggle('dark');
+            localStorage.setItem('theme', htmlElement.classList.contains('dark') ? 'dark' : 'light');
+            updateThemeIcon();
+        });
+
+        document.getElementById('menuToggle').addEventListener('click', () => {
+            document.getElementById('nav').classList.remove('translate-x-full');
+        });
+
+        document.getElementById('closeNav').addEventListener('click', () => {
+            document.getElementById('nav').classList.add('translate-x-full');
+        });
+    </script>
 </body>
 
 </html>

@@ -19,8 +19,6 @@ function authenticateUser(req, res, next) {
       (req.originalUrl.startsWith("/auth") || req.originalUrl === "/") &&
       req.originalUrl !== "/uploadPhoto" // Allow access to home
     ) {
-      console.log("checked");
-
       return next(); // Allow public routes
     } else {
       // For other protected routes, redirect to login

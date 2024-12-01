@@ -40,7 +40,7 @@ router.get("/user/:id", authenticateUser, async (req, res) => {
   const user = await userModel.findById(req.params.id).populate("posts");
   if (!user) return res.status(404).send("User not found");
 
-  return res.render("user", { user, currentUser });
+  return res.render("user", { user , currentUser });
 });
 
 

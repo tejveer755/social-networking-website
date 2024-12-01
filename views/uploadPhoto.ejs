@@ -1,24 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Profile Photo Upload</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
+<body class="bg-slate-100 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-white min-h-screen flex items-center justify-center p-4 antialiased">
+    <div class="w-full max-w-md bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 space-y-6">
+        <h2 class="text-2xl font-bold text-center mb-4 dark:text-white">Upload Profile Photo</h2>
+        
+        <form id="uploadForm" class="space-y-4" action="" method="post" enctype="multipart/form-data">
+            <div class="relative w-full">
+                <input 
+                    type="file" 
+                    id="profilePhoto" 
+                    name="profilePhoto" 
+                    accept="image/*" 
+                    required 
+                    class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                >
+                <div class="w-full bg-gray-100 dark:bg-gray-700 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4 text-center">
+                    <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 dark:text-gray-500 mb-2"></i>
+                    <p class="text-gray-500 dark:text-gray-400">Drag and drop or click to select a file</p>
+                    <span id="fileName" class="text-sm text-gray-600 dark:text-gray-300 mt-2 block"></span>
+                </div>
+            </div>
 
-<body
-    class="bg-slate-200 dark:bg-gradient-to-br p-6 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-white min-h-screen flex flex-col antialiased">
-    <form action="" method="post" class="flex" enctype="multipart/form-data">
-        <input type="file" name="profilePhoto" required>
+            <button 
+                type="submit" 
+                class="w-full bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center space-x-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                <i class="fas fa-upload mr-2"></i>
+                <span>Upload Photo</span>
+            </button>
+        </form>
 
-        <button
-            class="w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center space-x-2">
-            <span>Upload Photo</span>
-        </button>
-    </form>
+        <div id="previewContainer" class="mt-4 hidden">
+            <img id="imagePreview" src="#" alt="Image Preview" class="max-w-full rounded-lg shadow-md mx-auto">
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('profilePhoto').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const fileName = document.getElementById('fileName');
+            const previewContainer = document.getElementById('previewContainer');
+            const imagePreview = document.getElementById('imagePreview');
+
+            if (file) {
+                fileName.textContent = file.name;
+
+                // Image preview
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                    previewContainer.classList.remove('hidden');
+                }
+                reader.readAsDataURL(file);
+            } else {
+                fileName.textContent = '';
+                previewContainer.classList.add('hidden');
+            }
+        });
+    </script>
 </body>
-
 </html>
