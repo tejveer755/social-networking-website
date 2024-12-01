@@ -16,9 +16,11 @@
     <header
         class="w-full bg-gray-100 dark:bg-gray-800/80 backdrop-blur-md p-4 flex justify-between items-center shadow-lg sticky top-0 z-50">
         <div class="flex items-center space-x-4">
-            <img src="/images/uploads/<%=user? user.profilePhoto: 'default.jpg'%>"
-            class="w-8 h-8 rounded-full" alt="profilePhoto">            <h1 class="text-2xl font-bold">Hello, <span id="username" class="text-blue-700 dark:text-blue-300">
-                    <%#= user.username %>
+            <img src="/images/uploads/<%=user? user.profilePhoto: 'default.jpg'%>" class="w-8 h-8 rounded-full"
+                alt="profilePhoto">
+            <h1 class="text-2xl font-bold">Hello, 
+                <span id="username" class="text-blue-700 dark:text-blue-300">
+                    <%= user.username %>
                 </span> 👋</h1>
         </div>
 
